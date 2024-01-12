@@ -47,7 +47,7 @@ php artisan tinker
 3. Entre na rota **localhost:8000**. Essa rota ficará `escutando`os eventos
 
 4. Use o **postman** ou **insomnia** com a rota **POST** **localhost:8000/notifications** com o payload
-```javascript
+```json
 {
     "user_id": id_do_usuario_logado,
     "from_app": "CRM",
