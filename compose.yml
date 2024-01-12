@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+    notifications:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+            args:
+                APP_PORT: ${APP_PORT}
+                APP_ENV: ${APP_ENV}
+                UID: ${DOCKER_USER_ID}
+                GID: ${DOCKER_GROUP_ID}
+        privileged: true
+        container_name: '${APP_NAME}-php-fpm'
+        image: nave/hub
+        restart: always
+        volumes:
+            - ./:/app
+        ports:
+            - '${APP_PORT}:${APP_PORT}'
+        networks:
+            - notification-network
+        extra_hosts:
+            - host.docker.internal:host-gateway
+    mongo:
+        image: 'mongo:latest'
+        restart: always
+        ports:
+            - '27017:27017'
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_MONGO_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_MONGO_PASSWORD}
+            MONGO_INITDB_DATABASE: ${DB_MONGO_DATABASE}
+        networks:
+            - notification-network
+networks:
+    notification-network:
+        driver: bridge
+volumes:
+    mongo_db:
+        driver: local
