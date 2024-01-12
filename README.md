@@ -49,7 +49,7 @@ php artisan tinker
 4. Use o **postman** ou **insomnia** com a rota **POST** **localhost:8000/notifications** com o payload
 ```json
 {
-    "user_id": id_do_usuario_logado,
+    "user_id": "id_do_usuario_logado",
     "from_app": "CRM",
     "message": "Mensagem Teste"
 }
